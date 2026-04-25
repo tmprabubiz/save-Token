@@ -191,7 +191,9 @@ promptModal.addEventListener('click', (e) => {
 
 modalCopyBtn.addEventListener('click', async () => {
   const content = modalCodeContent.textContent;
-  if (!content || content === 'Loading...') return;
+  if (!content || content === 'Loading...'
+      || content === 'Select a model from the dropdown first, then click 💰 to see its system prompt.'
+      || content.startsWith('Could not load ')) return;
   try {
     await navigator.clipboard.writeText(content);
     modalCopyBtn.textContent = '✓ Copied!';
