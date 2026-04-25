@@ -164,7 +164,7 @@ modalCopyBtn.addEventListener('click', async () => {
   try {
     await navigator.clipboard.writeText(content);
     modalCopyBtn.textContent = '✓ Copied!';
-    setTimeout(() => { modalCopyBtn.innerHTML = '📋 Copy prompt'; }, 2000);
+    setTimeout(() => { modalCopyBtn.textContent = '📋 Copy prompt'; }, 2000);
   } catch {
     showError('Could not copy automatically. Select the text in the box and press Ctrl+C.');
   }
