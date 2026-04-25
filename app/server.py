@@ -294,9 +294,8 @@ async def open_logs():
         else:
             subprocess.Popen(["xdg-open", str(logs_path)])
         return {"status": "ok", "path": str(logs_path)}
-    except Exception as e:
-        return JSONResponse(status_code=500, content={"error": f"Could not open folder: {str(e)}"})
-
+    except Exception:
+        return JSONResponse(status_code=500, content={"error": "Could not open logs folder. Find it manually at: save-Token/logs/"})
 
 # ── Entry point ──────────────────────────────────────────────────────────────
 

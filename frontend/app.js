@@ -55,7 +55,7 @@ const MODEL_FAMILIES = [
     family: "Llama",
     variants: [
       { label: "Llama 3.1 405B",      value: "llama3.1-405b",  file: "llama3.1-405b.md" },
-      { label: "Llama 3.3 70B",       value: "llama3.1-405b",  file: "llama3.1-405b.md" },
+      { label: "Llama 3.3 70B",       value: "llama3.1-405b",  file: "llama3.1-405b.md" }, // shares Llama guide
     ],
   },
   {
