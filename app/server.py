@@ -227,6 +227,18 @@ async def compress(req: CompressRequest):
 
     savings = calculate_savings(req.text, compressed)
 
+    # Log the compression
+    try:
+        session_logger.log_compress(
+            original=req.text,
+            compressed=compressed,
+            model_used=model,
+            words_saved=savings["words_saved"],
+            percent_saved=savings["percent_saved"],
+        )
+    except Exception:
+        pass
+
     return CompressResponse(
         compressed=compressed,
         original_words=savings["original_words"],
@@ -265,14 +277,12 @@ async def expand(req: ExpandRequest):
     except RuntimeError as e:
         raise HTTPException(status_code=503, detail=str(e))
 
-    # Log the expansion (expanded text only, never caveman)
+    # Log the expansion
     try:
-        session_logger.log_entry(
-            original_compressed=req.text,
+        session_logger.log_expand(
+            compressed_input=req.text,
             expanded=expanded,
             model_used=model,
-            route=route,
-            mode="expand",
         )
     except Exception:
         pass  # Never let logging errors crash the app

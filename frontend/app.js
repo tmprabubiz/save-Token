@@ -130,6 +130,84 @@ function hideError() {
   errorBanner.classList.remove("visible");
 }
 
+// ── Theme toggle ──────────────────────────────────────────────────────────────
+const themeToggleBtn = document.getElementById('theme-toggle');
+const html = document.documentElement;
+
+function applyTheme(theme) {
+  html.setAttribute('data-theme', theme);
+  themeToggleBtn.textContent = theme === 'dark' ? '☀️' : '🌙';
+  localStorage.setItem('save-token-theme', theme);
+}
+
+// Load saved theme on startup
+const savedTheme = localStorage.getItem('save-token-theme') || 'light';
+applyTheme(savedTheme);
+
+themeToggleBtn.addEventListener('click', () => {
+  const current = html.getAttribute('data-theme');
+  applyTheme(current === 'dark' ? 'light' : 'dark');
+});
+
+// ── System prompt modal ───────────────────────────────────────────────────────
+const promptModal = document.getElementById('prompt-modal');
+const modalCodeContent = document.getElementById('modal-code-content');
+const modalTitle = document.getElementById('modal-title');
+const modalCopyBtn = document.getElementById('modal-copy-btn');
+const modalCloseBtn = document.getElementById('modal-close-btn');
+const appTitleBtn = document.getElementById('app-title-btn');
+
+async function openPromptModal() {
+  const selected = variantSelect.options[variantSelect.selectedIndex];
+  if (!selected || !selected.dataset.file) {
+    modalTitle.textContent = 'System Prompt';
+    modalCodeContent.textContent = 'Select a model from the dropdown first, then click 💰 to see its system prompt.';
+    promptModal.style.display = 'flex';
+    return;
+  }
+  const mdFile = selected.dataset.file;
+  modalTitle.textContent = `System Prompt — ${selected.textContent.trim()}`;
+  modalCodeContent.textContent = 'Loading...';
+  promptModal.style.display = 'flex';
+  try {
+    const resp = await fetch(`/model-persona/${mdFile}`);
+    if (!resp.ok) throw new Error('Not found');
+    const text = await resp.text();
+    modalCodeContent.textContent = text;
+  } catch (e) {
+    modalCodeContent.textContent = `Could not load ${mdFile}. Make sure the server is running.`;
+  }
+}
+
+appTitleBtn.addEventListener('click', openPromptModal);
+
+modalCloseBtn.addEventListener('click', () => {
+  promptModal.style.display = 'none';
+});
+
+promptModal.addEventListener('click', (e) => {
+  if (e.target === promptModal) promptModal.style.display = 'none';
+});
+
+modalCopyBtn.addEventListener('click', async () => {
+  const content = modalCodeContent.textContent;
+  if (!content || content === 'Loading...') return;
+  try {
+    await navigator.clipboard.writeText(content);
+    modalCopyBtn.textContent = '✓ Copied!';
+    setTimeout(() => { modalCopyBtn.textContent = '📋 Copy'; }, 2000);
+  } catch (e) {
+    showError('Could not copy. Please select the text manually and press Ctrl+C.');
+  }
+});
+
+// Close modal with Escape key
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'Escape' && promptModal.style.display !== 'none') {
+    promptModal.style.display = 'none';
+  }
+});
+
 // ── Model Family / Variant dropdowns ────────────────────────────────────────
 
 function buildFamilyDropdown() {
