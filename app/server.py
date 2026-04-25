@@ -14,6 +14,8 @@ Then open: http://localhost:8000
 
 import sys
 import os
+import subprocess
+import platform
 from pathlib import Path
 
 # Add repo root to path so imports work when running from any directory
@@ -278,13 +280,31 @@ async def expand(req: ExpandRequest):
     return ExpandResponse(expanded=expanded, model_used=model)
 
 
+@app.post("/open-logs")
+async def open_logs():
+    """Open the logs folder in the system file explorer."""
+    logs_path = REPO_ROOT / "logs"
+    logs_path.mkdir(exist_ok=True)
+    try:
+        system = platform.system()
+        if system == "Windows":
+            subprocess.Popen(f'explorer "{logs_path}"')
+        elif system == "Darwin":
+            subprocess.Popen(["open", str(logs_path)])
+        else:
+            subprocess.Popen(["xdg-open", str(logs_path)])
+        return {"status": "ok", "path": str(logs_path)}
+    except Exception as e:
+        return JSONResponse(status_code=500, content={"error": f"Could not open folder: {str(e)}"})
+
+
 # ── Entry point ──────────────────────────────────────────────────────────────
 
 if __name__ == "__main__":
     # Reset session log on startup
     session_logger.reset_session()
 
-    print("🪨 Save Token starting...")
+    print("💰 Save Token starting...")
     print("   Open your browser at: http://localhost:8000")
     print("   Press Ctrl+C to stop.")
     print()

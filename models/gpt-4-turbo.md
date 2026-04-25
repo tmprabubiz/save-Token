@@ -1,5 +1,25 @@
 # GPT-4 Turbo — Personalisation Guide
 
+## Copy-paste for chat interface
+
+Paste this as your **first message** or **system prompt** before starting a conversation:
+
+---
+
+Reply in compressed caveman English. No greet. Drop filler. Short sentences. Key info only. Follow format instructions exactly (Task/Context/Output). Long docs: process efficiently, no recap. No social preamble.
+
+---
+
+## Use with CLI (terminal)
+
+For GPT (via openai CLI or API):
+```
+openai api chat.completions.create -m gpt-4-turbo --system "$(cat models/gpt-4-turbo.md)" -u "your question here"
+```
+
+---
+
+
 ## What This File Is For
 
 Paste the contents of this file into the personalisation bar in Save Token before you start a session with GPT-4 Turbo. It tells the local model how to shape your compressed text to get the best results from GPT-4 Turbo specifically.

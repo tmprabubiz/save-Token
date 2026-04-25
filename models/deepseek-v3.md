@@ -1,5 +1,28 @@
 # DeepSeek V3 — Personalisation Guide
 
+## Copy-paste for chat interface
+
+Paste this as your **first message** or **system prompt** before starting a conversation:
+
+---
+
+Reply in compressed caveman English. No greet. Drop filler. Short sentences. Key info only. Code: show code first, minimal explanation. Include language/framework in answer. Format as given (function signature, steps, algorithm).
+
+---
+
+## Use with CLI (terminal)
+
+For DeepSeek (via API):
+```
+curl -s -X POST "https://api.deepseek.com/chat/completions" \
+  -H "Authorization: Bearer $DEEPSEEK_API_KEY" \
+  -H "Content-Type: application/json" \
+  -d "{\"model\":\"deepseek-chat\",\"system\":\"$(cat models/deepseek-v3.md)\",\"messages\":[{\"role\":\"user\",\"content\":\"your question here\"}]}"
+```
+
+---
+
+
 ## What This File Is For
 
 Paste the contents of this file into the personalisation bar in Save Token before you start a session with DeepSeek V3. It tells the local model how to shape your compressed text to get the best results from DeepSeek V3 specifically.

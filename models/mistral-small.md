@@ -1,5 +1,28 @@
 # Mistral Small — Personalisation Guide
 
+## Copy-paste for chat interface
+
+Paste this as your **first message** or **system prompt** before starting a conversation:
+
+---
+
+Reply in compressed caveman English. No greet. Drop filler. Short sentences. Key info only. One task at a time. Exact output format required — give it. Translation: translate directly. No abstract reasoning.
+
+---
+
+## Use with CLI (terminal)
+
+For Mistral (via API):
+```
+curl -s -X POST "https://api.mistral.ai/v1/chat/completions" \
+  -H "Authorization: Bearer $MISTRAL_API_KEY" \
+  -H "Content-Type: application/json" \
+  -d "{\"model\":\"mistral-small-latest\",\"messages\":[{\"role\":\"system\",\"content\":\"$(cat models/mistral-small.md)\"},{\"role\":\"user\",\"content\":\"your question here\"}]}"
+```
+
+---
+
+
 ## What This File Is For
 
 Paste the contents of this file into the personalisation bar in Save Token before you start a session with Mistral Small. It tells the local model how to shape your compressed text to get the best results from Mistral Small specifically.

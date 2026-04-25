@@ -11,50 +11,61 @@ const MODEL_FAMILIES = [
   {
     family: "Claude",
     variants: [
-      { label: "Claude Sonnet",  value: "claude-sonnet",  file: "claude-sonnet.md" },
-      { label: "Claude Haiku",   value: "claude-haiku",   file: "claude-haiku.md"  },
-      { label: "Claude Opus",    value: "claude-opus",    file: "claude-opus.md"   },
+      { label: "★ Claude Opus 4",      value: "claude-opus",    file: "claude-opus.md"   },
+      { label: "★ Claude Sonnet 4",    value: "claude-sonnet",  file: "claude-sonnet.md" },
+      { label: "Claude Sonnet 3.7",    value: "claude-sonnet",  file: "claude-sonnet.md" },
+      { label: "Claude Sonnet 3.5",    value: "claude-sonnet",  file: "claude-sonnet.md" },
+      { label: "Claude Haiku 3.5",     value: "claude-haiku",   file: "claude-haiku.md"  },
+      { label: "Claude Haiku 3",       value: "claude-haiku",   file: "claude-haiku.md"  },
     ],
   },
   {
-    family: "GPT-4",
+    family: "GPT",
     variants: [
-      { label: "GPT-4o",        value: "gpt-4o",       file: "gpt-4o.md"       },
-      { label: "GPT-4o mini",   value: "gpt-4o-mini",  file: "gpt-4o-mini.md"  },
-      { label: "GPT-4 Turbo",   value: "gpt-4-turbo",  file: "gpt-4-turbo.md"  },
+      { label: "★ GPT-4.1",           value: "gpt-4o",         file: "gpt-4o.md"        },
+      { label: "GPT-4o",              value: "gpt-4o",         file: "gpt-4o.md"        },
+      { label: "GPT-4o mini",         value: "gpt-4o-mini",    file: "gpt-4o-mini.md"   },
+      { label: "GPT-4 Turbo",         value: "gpt-4-turbo",    file: "gpt-4-turbo.md"   },
     ],
   },
   {
     family: "Gemini",
     variants: [
-      { label: "Gemini 2.0 Flash", value: "gemini-2.0-flash", file: "gemini-2.0-flash.md" },
-      { label: "Gemini 2.5 Pro",   value: "gemini-2.5-pro",   file: "gemini-2.5-pro.md"   },
+      { label: "★ Gemini 2.5 Pro",    value: "gemini-2.5-pro",   file: "gemini-2.5-pro.md"   },
+      { label: "Gemini 2.5 Flash",    value: "gemini-2.0-flash", file: "gemini-2.0-flash.md" },
+      { label: "Gemini 2.0 Flash",    value: "gemini-2.0-flash", file: "gemini-2.0-flash.md" },
+      { label: "Gemini 1.5 Pro",      value: "gemini-2.5-pro",   file: "gemini-2.5-pro.md"   },
     ],
   },
   {
     family: "Mistral",
     variants: [
-      { label: "Mistral Large", value: "mistral-large", file: "mistral-large.md" },
-      { label: "Mistral Small", value: "mistral-small", file: "mistral-small.md" },
+      { label: "★ Mistral Large 2",   value: "mistral-large",  file: "mistral-large.md" },
+      { label: "Mistral Small 3.1",   value: "mistral-small",  file: "mistral-small.md" },
     ],
   },
   {
     family: "DeepSeek",
     variants: [
-      { label: "DeepSeek V3", value: "deepseek-v3", file: "deepseek-v3.md" },
-      { label: "DeepSeek R1", value: "deepseek-r1", file: "deepseek-r1.md" },
+      { label: "DeepSeek V3",         value: "deepseek-v3",    file: "deepseek-v3.md"   },
+      { label: "DeepSeek R1",         value: "deepseek-r1",    file: "deepseek-r1.md"   },
     ],
   },
   {
     family: "Llama",
     variants: [
-      { label: "Llama 3.1 405B", value: "llama3.1-405b", file: "llama3.1-405b.md" },
+      { label: "Llama 3.1 405B",      value: "llama3.1-405b",  file: "llama3.1-405b.md" },
+      { label: "Llama 3.3 70B",       value: "llama3.1-405b",  file: "llama3.1-405b.md" },
     ],
   },
   {
     family: "Local",
     variants: [
-      { label: "Local models guide", value: "local-models", file: "local-models.md" },
+      { label: "gemma3:27b",          value: "local-models",   file: "local-models.md"  },
+      { label: "gemma3:12b",          value: "local-models",   file: "local-models.md"  },
+      { label: "qwen2.5-coder:7b",    value: "local-models",   file: "local-models.md"  },
+      { label: "phi3:mini",           value: "local-models",   file: "local-models.md"  },
+      { label: "tinyllama:1.1b",      value: "local-models",   file: "local-models.md"  },
     ],
   },
 ];
@@ -153,7 +164,22 @@ variantSelect.addEventListener("change", async () => {
   const selected = variantSelect.options[variantSelect.selectedIndex];
   if (!selected || !selected.dataset.file) return;
   await loadPersonaFromServer(selected.dataset.file);
+  updateModelMdLink();
 });
+
+function updateModelMdLink() {
+  const selected = variantSelect.options[variantSelect.selectedIndex];
+  const mdFile = selected ? selected.dataset.file : null;
+  const link = document.getElementById('model-md-link');
+  if (mdFile) {
+    link.href = `/model-persona/${mdFile}`;
+    link.style.display = 'inline';
+    link.title = `View/download ${mdFile}`;
+    link.textContent = `📄 ${mdFile}`;
+  } else {
+    link.style.display = 'none';
+  }
+}
 
 // ── Load personalisation file ────────────────────────────────────────────────
 
@@ -186,6 +212,36 @@ fileInput.addEventListener("change", () => {
   };
   reader.readAsText(file);
   fileInput.value = "";
+});
+
+// Paste from clipboard
+document.getElementById('paste-persona-btn').addEventListener('click', async () => {
+  try {
+    const text = await navigator.clipboard.readText();
+    if (text) {
+      document.getElementById('persona-text').value = text;
+    }
+  } catch (e) {
+    showError('Clipboard access denied. Please paste manually into the personalisation box (Ctrl+V).');
+  }
+});
+
+// Clear personalisation
+document.getElementById('clear-persona-btn').addEventListener('click', () => {
+  document.getElementById('persona-text').value = '';
+});
+
+// Open logs folder
+document.getElementById('open-logs-btn').addEventListener('click', async () => {
+  try {
+    const resp = await fetch('/open-logs', { method: 'POST' });
+    if (!resp.ok) {
+      const data = await resp.json();
+      showError(`Could not open logs folder: ${data.error || 'Unknown error'}. Find it manually at: save-Token/logs/`);
+    }
+  } catch (e) {
+    showError('Could not open logs folder automatically. Find it manually at: save-Token/logs/');
+  }
 });
 
 // ── Word count live updates ──────────────────────────────────────────────────

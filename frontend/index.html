@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>🪨 Save Token</title>
+  <title>💰 Save Token</title>
   <link rel="stylesheet" href="/static/style.css" />
 </head>
 <body>
@@ -11,11 +11,14 @@
 
   <!-- ── Top bar ──────────────────────────────────────────────── -->
   <div class="topbar">
-    <div class="app-title">🪨 Save Token</div>
+    <div class="app-title">💰 Save Token</div>
     <div class="topbar-controls">
       <!-- Target AI family + variant dropdowns -->
       <select id="family-select" title="Select target AI family" aria-label="Target AI family"></select>
       <select id="variant-select" title="Select model variant" aria-label="Model variant"></select>
+      <a id="model-md-link" class="link-btn" href="#" target="_blank" title="View or download the personalisation file for this model" style="display:none">
+        📄 View model .md
+      </a>
 
       <!-- Compression mode -->
       <span class="mode-label">Mode:</span>
@@ -46,29 +49,57 @@
     ></textarea>
     <div class="persona-bar-footer">
       <button class="link-btn" id="load-file-btn" title="Load a personalisation .md file from your computer">
-        Load from file
+        📂 Load .md file
+      </button>
+      <button class="link-btn" id="paste-persona-btn" title="Paste from clipboard into personalisation box">
+        📋 Paste from clipboard
+      </button>
+      <button class="link-btn" id="clear-persona-btn" title="Clear personalisation box">
+        ✕ Clear
       </button>
       <!-- Hidden file input -->
       <input type="file" id="file-input" accept=".md,.txt" style="display:none" aria-hidden="true" />
     </div>
   </div>
 
-  <!-- ── USER window ──────────────────────────────────────────── -->
-  <div class="panel">
-    <div class="panel-label">USER — paste or type your question here</div>
-    <textarea
-      id="user-text"
-      rows="7"
-      placeholder="Type or paste your question here. The more you write, the more tokens you will save after compression."
-      aria-label="Your question or message"
-    ></textarea>
-    <div class="panel-footer">
-      <span class="word-count" id="user-word-count">0 words</span>
-      <button class="btn btn-primary" id="compress-btn" aria-label="Compress your text">
-        Compress →
-      </button>
+  <!-- ── Side-by-side panels ──────────────────────── -->
+  <div class="panels-row">
+
+    <!-- ── USER window ──────────────────────────────── -->
+    <div class="panel">
+      <div class="panel-label">USER — paste or type your question here</div>
+      <textarea
+        id="user-text"
+        rows="7"
+        placeholder="Type or paste your question here. The more you write, the more tokens you will save after compression."
+        aria-label="Your question or message"
+      ></textarea>
+      <div class="panel-footer">
+        <span class="word-count" id="user-word-count">0 words</span>
+        <button class="btn btn-primary" id="compress-btn" aria-label="Compress your text">
+          Compress →
+        </button>
+      </div>
     </div>
-  </div>
+
+    <!-- ── MODEL window ─────────────────────────────── -->
+    <div class="panel">
+      <div class="panel-label">MODEL — paste the AI response here</div>
+      <textarea
+        id="model-text"
+        rows="7"
+        placeholder="Paste the AI model's response here. If it replied in compressed caveman style, press Expand → to convert it back to readable English."
+        aria-label="AI model response"
+      ></textarea>
+      <div class="panel-footer">
+        <span class="word-count" id="model-word-count">0 words</span>
+        <button class="btn btn-primary" id="expand-btn" aria-label="Expand compressed response to readable English">
+          Expand →
+        </button>
+      </div>
+    </div>
+
+  </div><!-- /panels-row -->
 
   <!-- ── CHECKPOINT panel ─────────────────────────────────────── -->
   <!--
@@ -106,27 +137,11 @@
     </div>
   </div>
 
-  <!-- ── MODEL window ─────────────────────────────────────────── -->
-  <div class="panel">
-    <div class="panel-label">MODEL — paste the AI response here</div>
-    <textarea
-      id="model-text"
-      rows="7"
-      placeholder="Paste the AI model's response here. If it replied in compressed caveman style, press Expand → to convert it back to readable English."
-      aria-label="AI model response"
-    ></textarea>
-    <div class="panel-footer">
-      <span class="word-count" id="model-word-count">0 words</span>
-      <button class="btn btn-primary" id="expand-btn" aria-label="Expand compressed response to readable English">
-        Expand →
-      </button>
-    </div>
-  </div>
-
   <!-- ── Status line ──────────────────────────────────────────── -->
   <div class="status-bar" aria-live="polite" aria-atomic="true">
     <div class="status-dot loading" id="status-dot"></div>
     <span class="status-text" id="status-text">Connecting to local model...</span>
+    <button class="link-btn" id="open-logs-btn" title="Open the logs folder in Windows Explorer">📁 Logs</button>
   </div>
 
 </div><!-- /app-wrapper -->

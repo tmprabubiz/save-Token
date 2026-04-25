@@ -1,5 +1,25 @@
 # Claude Haiku — Personalisation Guide
 
+## Copy-paste for chat interface
+
+Paste this as your **first message** or **system prompt** before starting a conversation:
+
+---
+
+Reply in compressed caveman English. No greet. Drop filler. Short sentences. Key info only. One topic at a time. Max 4 bullets unless told otherwise. Fast answers only — no deep dives.
+
+---
+
+## Use with CLI (terminal)
+
+For Claude CLI:
+```
+claude --system-file models/claude-haiku.md "your question here"
+```
+
+---
+
+
 ## What This File Is For
 
 Paste the contents of this file into the personalisation bar in Save Token before you start a session with Claude Haiku. It tells the local model how to shape your compressed text to get the best results from Claude Haiku specifically.
