@@ -1,21 +1,21 @@
 /* style.css — Save Token UI */
 
 :root {
-  --bg: #1a1a2e;
-  --bg-card: #16213e;
-  --bg-input: #0f3460;
-  --accent: #e94560;
-  --accent-hover: #c73652;
-  --accent-success: #27ae60;
-  --accent-success-hover: #1e8449;
-  --accent-warn: #f39c12;
-  --text: #e8e8f0;
-  --text-dim: #8888aa;
-  --text-muted: #555577;
-  --border: #2a2a4a;
-  --border-light: #3a3a5a;
-  --checkpoint-bg: #0d2137;
-  --checkpoint-border: #1a5276;
+  --bg: #f5f5f5;
+  --bg-card: #ffffff;
+  --bg-input: #ffffff;
+  --accent: #1a73e8;
+  --accent-hover: #1558b0;
+  --accent-success: #188038;
+  --accent-success-hover: #0d6b2e;
+  --accent-warn: #e37400;
+  --text: #1f1f1f;
+  --text-dim: #5f6368;
+  --text-muted: #9aa0a6;
+  --border: #dadce0;
+  --border-light: #e8eaed;
+  --checkpoint-bg: #e8f0fe;
+  --checkpoint-border: #1a73e8;
   --radius: 8px;
   --font: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
   --mono: 'Consolas', 'Courier New', monospace;
@@ -32,7 +32,7 @@ html, body {
   font-family: var(--font);
   background: var(--bg);
   color: var(--text);
-  font-size: 15px;
+  font-size: 17px;
   line-height: 1.5;
 }
 
@@ -42,9 +42,9 @@ html, body {
   display: flex;
   flex-direction: column;
   min-height: 100vh;
-  max-width: 900px;
+  max-width: 100%;
   margin: 0 auto;
-  padding: 0 16px 16px;
+  padding: 0 32px 24px;
 }
 
 /* ── Top bar ─────────────────────────────────────── */
@@ -61,7 +61,7 @@ html, body {
 }
 
 .app-title {
-  font-size: 1.4rem;
+  font-size: 1.7rem;
   font-weight: 700;
   letter-spacing: -0.3px;
   color: var(--text);
@@ -80,7 +80,7 @@ select {
   border: 1px solid var(--border-light);
   border-radius: var(--radius);
   padding: 6px 10px;
-  font-size: 13px;
+  font-size: 15px;
   font-family: var(--font);
   cursor: pointer;
   outline: none;
@@ -92,7 +92,7 @@ select:focus, select:hover {
 }
 
 .mode-label {
-  font-size: 12px;
+  font-size: 14px;
   color: var(--text-dim);
   white-space: nowrap;
 }
@@ -109,7 +109,7 @@ select:focus, select:hover {
 
 .persona-bar label {
   display: block;
-  font-size: 12px;
+  font-size: 14px;
   color: var(--text-dim);
   margin-bottom: 6px;
 }
@@ -118,10 +118,10 @@ select:focus, select:hover {
   width: 100%;
   background: var(--bg-input);
   color: var(--text);
-  border: 1px solid var(--border-light);
+  border: 1px solid var(--border);
   border-radius: var(--radius);
   padding: 8px 10px;
-  font-size: 13px;
+  font-size: 15px;
   font-family: var(--font);
   resize: vertical;
   outline: none;
@@ -145,7 +145,7 @@ select:focus, select:hover {
   border: none;
   color: var(--accent);
   cursor: pointer;
-  font-size: 12px;
+  font-size: 14px;
   padding: 0;
   text-decoration: underline;
 }
@@ -165,7 +165,7 @@ select:focus, select:hover {
 }
 
 .panel-label {
-  font-size: 11px;
+  font-size: 13px;
   font-weight: 600;
   text-transform: uppercase;
   letter-spacing: 0.8px;
@@ -177,10 +177,10 @@ select:focus, select:hover {
   width: 100%;
   background: var(--bg-input);
   color: var(--text);
-  border: 1px solid var(--border-light);
+  border: 1px solid var(--border);
   border-radius: var(--radius);
   padding: 10px 12px;
-  font-size: 14px;
+  font-size: 16px;
   font-family: var(--font);
   resize: vertical;
   outline: none;
@@ -202,7 +202,7 @@ select:focus, select:hover {
 }
 
 .word-count {
-  font-size: 12px;
+  font-size: 14px;
   color: var(--text-muted);
 }
 
@@ -212,7 +212,7 @@ select:focus, select:hover {
   border: none;
   border-radius: var(--radius);
   padding: 8px 18px;
-  font-size: 14px;
+  font-size: 16px;
   font-family: var(--font);
   font-weight: 600;
   cursor: pointer;
@@ -245,7 +245,7 @@ select:focus, select:hover {
 
 .btn-warn {
   background: var(--accent-warn);
-  color: #1a1a2e;
+  color: #ffffff;
 }
 
 .btn-warn:hover:not(:disabled) {
@@ -297,7 +297,7 @@ select:focus, select:hover {
 }
 
 .checkpoint-header {
-  font-size: 13px;
+  font-size: 15px;
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.6px;
@@ -346,7 +346,7 @@ select:focus, select:hover {
 }
 
 .checkpoint-col-text {
-  font-size: 13px;
+  font-size: 15px;
   color: var(--text);
   line-height: 1.5;
   white-space: pre-wrap;
@@ -356,7 +356,7 @@ select:focus, select:hover {
 }
 
 .checkpoint-savings-bar {
-  font-size: 13px;
+  font-size: 15px;
   color: var(--text-dim);
   margin-bottom: 12px;
 }
@@ -380,7 +380,7 @@ select:focus, select:hover {
   background: var(--bg-card);
   border: 1px solid var(--border);
   border-radius: var(--radius);
-  font-size: 12px;
+  font-size: 13px;
   color: var(--text-dim);
   font-family: var(--mono);
   display: flex;
@@ -426,11 +426,11 @@ select:focus, select:hover {
 /* ── Error state ─────────────────────────────────── */
 
 .error-banner {
-  background: rgba(233, 69, 96, 0.15);
-  border: 1px solid var(--accent);
+  background: rgba(227, 116, 0, 0.1);
+  border: 1px solid var(--accent-warn);
   border-radius: var(--radius);
   padding: 10px 14px;
-  font-size: 13px;
+  font-size: 15px;
   color: var(--text);
   margin-bottom: 14px;
   display: none;
