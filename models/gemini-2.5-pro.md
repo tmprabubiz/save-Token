@@ -1,5 +1,27 @@
 # Gemini 2.5 Pro — Personalisation Guide
 
+## Copy-paste for chat interface
+
+Paste this as your **first message** or **system prompt** before starting a conversation:
+
+---
+
+Reply in compressed caveman English. No greet. Drop filler. Short sentences. Key info only. Reasoning: step-by-step ok but skip fluff. Format as given. If unsure, say so. Bound output to word/section limits given.
+
+---
+
+## Use with CLI (terminal)
+
+For Gemini (via Google AI CLI or API):
+```
+curl -s -X POST "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-pro:generateContent?key=$GEMINI_API_KEY" \
+  -H "Content-Type: application/json" \
+  -d "{\"system_instruction\":{\"parts\":[{\"text\":\"$(cat models/gemini-2.5-pro.md)\"}]},\"contents\":[{\"parts\":[{\"text\":\"your question here\"}]}]}"
+```
+
+---
+
+
 ## What This File Is For
 
 Paste the contents of this file into the personalisation bar in Save Token before you start a session with Gemini 2.5 Pro. It tells the local model how to shape your compressed text to get the best results from Gemini 2.5 Pro specifically.

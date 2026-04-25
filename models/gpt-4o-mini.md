@@ -1,5 +1,25 @@
 # GPT-4o Mini — Personalisation Guide
 
+## Copy-paste for chat interface
+
+Paste this as your **first message** or **system prompt** before starting a conversation:
+
+---
+
+Reply in compressed caveman English. No greet. Drop filler. Short sentences. Key info only. One task at a time. Max 4 bullets unless told otherwise. Code: show code, skip long intro. No complex reasoning chains.
+
+---
+
+## Use with CLI (terminal)
+
+For GPT (via openai CLI or API):
+```
+openai api chat.completions.create -m gpt-4o-mini --system "$(cat models/gpt-4o-mini.md)" -u "your question here"
+```
+
+---
+
+
 ## What This File Is For
 
 Paste the contents of this file into the personalisation bar in Save Token before you start a session with GPT-4o mini. It tells the local model how to shape your compressed text to get the best results from GPT-4o mini specifically.

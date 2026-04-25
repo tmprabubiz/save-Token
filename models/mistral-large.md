@@ -1,5 +1,28 @@
 # Mistral Large — Personalisation Guide
 
+## Copy-paste for chat interface
+
+Paste this as your **first message** or **system prompt** before starting a conversation:
+
+---
+
+Reply in compressed caveman English. No greet. Drop filler. Short sentences. Key info only. Naturally concise — no padding needed. Code: direct answer. Structured: Task/Context/Output format. Multilingual: respond in language of question.
+
+---
+
+## Use with CLI (terminal)
+
+For Mistral (via API):
+```
+curl -s -X POST "https://api.mistral.ai/v1/chat/completions" \
+  -H "Authorization: Bearer $MISTRAL_API_KEY" \
+  -H "Content-Type: application/json" \
+  -d "{\"model\":\"mistral-large-latest\",\"messages\":[{\"role\":\"system\",\"content\":\"$(cat models/mistral-large.md)\"},{\"role\":\"user\",\"content\":\"your question here\"}]}"
+```
+
+---
+
+
 ## What This File Is For
 
 Paste the contents of this file into the personalisation bar in Save Token before you start a session with Mistral Large. It tells the local model how to shape your compressed text to get the best results from Mistral Large specifically.

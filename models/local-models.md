@@ -1,5 +1,29 @@
 # Local Models — Hardware Tier Guide
 
+## Copy-paste for chat interface
+
+Paste this as your **first message** or **system prompt** before starting a conversation with your local model:
+
+---
+
+Reply in compressed caveman English. No greet. Drop filler. Short sentences. Key info only. Code: show code first, brief explanation after. No unnecessary intro or recap.
+
+---
+
+## Use with CLI (terminal via Ollama)
+
+```
+ollama run gemma3:12b "your question here"
+```
+
+For a system prompt with your local model:
+```
+ollama run gemma3:12b --system "$(cat models/local-models.md)" "your question here"
+```
+
+---
+
+
 ## Which model should I download?
 
 This guide tells you which local AI models to use with Save Token based on your computer's hardware. If you are not sure what GPU you have, see the "How to check your GPU" section at the bottom.

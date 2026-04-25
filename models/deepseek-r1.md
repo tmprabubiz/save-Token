@@ -1,5 +1,28 @@
 # DeepSeek R1 — Personalisation Guide
 
+## Copy-paste for chat interface
+
+Paste this as your **first message** or **system prompt** before starting a conversation:
+
+---
+
+You are a reasoning model. Reason fully then give concise final answer. No greet. Give all constraints/facts in input — rely on them for reasoning. If only final answer needed, user will say "Final answer only". Code: include error messages verbatim.
+
+---
+
+## Use with CLI (terminal)
+
+For DeepSeek (via API):
+```
+curl -s -X POST "https://api.deepseek.com/chat/completions" \
+  -H "Authorization: Bearer $DEEPSEEK_API_KEY" \
+  -H "Content-Type: application/json" \
+  -d "{\"model\":\"deepseek-reasoner\",\"system\":\"$(cat models/deepseek-r1.md)\",\"messages\":[{\"role\":\"user\",\"content\":\"your question here\"}]}"
+```
+
+---
+
+
 ## What This File Is For
 
 Paste the contents of this file into the personalisation bar in Save Token before you start a session with DeepSeek R1. It tells the local model how to shape your compressed text to get the best results from DeepSeek R1 specifically.

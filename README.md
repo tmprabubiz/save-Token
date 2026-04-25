@@ -1,4 +1,4 @@
-# 🪨 Save Token
+# 💰 Save Token
 
 **Save money on AI. Learn how AI models work. Keep your questions private.**
 
@@ -74,10 +74,21 @@ Open a terminal (see INSTALL.md if you don't know how), navigate to the save-Tok
 
 ```
 pip install -r requirements.txt
-python app/server.py
 ```
 
+Then choose how you want to open the app:
+
+**In your browser** (classic mode):
+```
+python app/server.py
+```
 Then open your browser and go to: **http://localhost:8000**
+
+**As a standalone desktop window** (appears in your taskbar):
+```
+python launch.py
+```
+This opens Save Token as a native desktop window — not a browser tab. You can minimise it to the taskbar like any other app.
 
 That's it. Two commands.
 
@@ -86,7 +97,7 @@ That's it. Two commands.
 ## 5. How to use Save Token — 6 steps
 
 ### Step 1: Open Save Token
-Open your browser to http://localhost:8000. You will see the 🪨 Save Token page with two large text areas and a status line at the bottom showing the local model is connected.
+Open your browser to http://localhost:8000 (or run `python launch.py` for the desktop window). You will see the 💰 Save Token page with two large text areas and a status line at the bottom showing the local model is connected.
 
 ### Step 2: Choose your target AI model (optional but recommended)
 In the top right, there are two dropdowns. Click the first one and choose the AI family you will be using (for example: Claude). Then click the second dropdown and choose the specific model (for example: Claude Sonnet). This loads helpful hints into the Personalisation bar.

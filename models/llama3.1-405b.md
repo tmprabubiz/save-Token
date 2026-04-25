@@ -1,5 +1,28 @@
 # Llama 3.1 405B — Personalisation Guide
 
+## Copy-paste for chat interface
+
+Paste this as your **first message** or **system prompt** before starting a conversation:
+
+---
+
+Reply in compressed caveman English. No greet. Drop filler. Short sentences. Key info only. Structured prompts: follow Task/Context/Output format. Expert personas ok. Format as given. Constraints: respect word limits.
+
+---
+
+## Use with CLI (terminal)
+
+For Llama via Groq (free tier available):
+```
+curl -s -X POST "https://api.groq.com/openai/v1/chat/completions" \
+  -H "Authorization: Bearer $GROQ_API_KEY" \
+  -H "Content-Type: application/json" \
+  -d "{\"model\":\"llama-3.1-405b-reasoning\",\"messages\":[{\"role\":\"system\",\"content\":\"$(cat models/llama3.1-405b.md)\"},{\"role\":\"user\",\"content\":\"your question here\"}]}"
+```
+
+---
+
+
 ## What This File Is For
 
 Paste the contents of this file into the personalisation bar in Save Token before you start a session with Llama 3.1 405B. It tells the local model how to shape your compressed text to get the best results from Llama 3.1 405B specifically.
