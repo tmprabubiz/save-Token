@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="light">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -11,7 +11,8 @@
 
   <!-- ── Top bar ──────────────────────────────────────────────── -->
   <div class="topbar">
-    <div class="app-title">💰 Save Token</div>
+    <button id="app-title-btn" class="app-title" title="Click to view system prompt for selected model">💰 Save Token</button>
+    <button id="theme-toggle" class="theme-toggle-btn" title="Toggle dark/light mode" aria-label="Toggle dark/light mode">🌙</button>
     <div class="topbar-controls">
       <!-- Target AI family + variant dropdowns -->
       <select id="family-select" title="Select target AI family" aria-label="Target AI family"></select>
@@ -30,6 +31,21 @@
         <option value="wenyan-full">wenyan-full</option>
         <option value="wenyan-ultra">wenyan-ultra</option>
       </select>
+    </div>
+  </div>
+
+  <!-- ── System prompt modal ──────────────────────────────────────── -->
+  <div id="prompt-modal" class="modal-overlay" role="dialog" aria-modal="true" aria-label="Model system prompt" style="display:none">
+    <div class="modal-box">
+      <div class="modal-header">
+        <span class="modal-title" id="modal-title">System Prompt</span>
+        <button class="modal-close-btn" id="modal-close-btn" aria-label="Close">✕</button>
+      </div>
+      <p class="modal-hint">Paste this as your <strong>first message</strong> or <strong>system prompt</strong> before starting a conversation with this model.</p>
+      <div class="modal-code-wrapper">
+        <pre class="modal-code" id="modal-code-content">Select a model from the dropdown first.</pre>
+        <button class="btn btn-primary modal-copy-btn" id="modal-copy-btn">📋 Copy</button>
+      </div>
     </div>
   </div>
 
