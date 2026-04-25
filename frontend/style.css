@@ -1,0 +1,460 @@
+/* style.css — Save Token UI */
+
+:root {
+  --bg: #1a1a2e;
+  --bg-card: #16213e;
+  --bg-input: #0f3460;
+  --accent: #e94560;
+  --accent-hover: #c73652;
+  --accent-success: #27ae60;
+  --accent-success-hover: #1e8449;
+  --accent-warn: #f39c12;
+  --text: #e8e8f0;
+  --text-dim: #8888aa;
+  --text-muted: #555577;
+  --border: #2a2a4a;
+  --border-light: #3a3a5a;
+  --checkpoint-bg: #0d2137;
+  --checkpoint-border: #1a5276;
+  --radius: 8px;
+  --font: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --mono: 'Consolas', 'Courier New', monospace;
+}
+
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html, body {
+  height: 100%;
+  font-family: var(--font);
+  background: var(--bg);
+  color: var(--text);
+  font-size: 15px;
+  line-height: 1.5;
+}
+
+/* ── Layout ─────────────────────────────────────── */
+
+.app-wrapper {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 0 16px 16px;
+}
+
+/* ── Top bar ─────────────────────────────────────── */
+
+.topbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 12px;
+  padding: 14px 0 10px;
+  border-bottom: 1px solid var(--border);
+  margin-bottom: 14px;
+}
+
+.app-title {
+  font-size: 1.4rem;
+  font-weight: 700;
+  letter-spacing: -0.3px;
+  color: var(--text);
+}
+
+.topbar-controls {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+select {
+  background: var(--bg-input);
+  color: var(--text);
+  border: 1px solid var(--border-light);
+  border-radius: var(--radius);
+  padding: 6px 10px;
+  font-size: 13px;
+  font-family: var(--font);
+  cursor: pointer;
+  outline: none;
+  transition: border-color 0.2s;
+}
+
+select:focus, select:hover {
+  border-color: var(--accent);
+}
+
+.mode-label {
+  font-size: 12px;
+  color: var(--text-dim);
+  white-space: nowrap;
+}
+
+/* ── Personalisation bar ─────────────────────────── */
+
+.persona-bar {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 12px 14px;
+  margin-bottom: 14px;
+}
+
+.persona-bar label {
+  display: block;
+  font-size: 12px;
+  color: var(--text-dim);
+  margin-bottom: 6px;
+}
+
+.persona-bar textarea {
+  width: 100%;
+  background: var(--bg-input);
+  color: var(--text);
+  border: 1px solid var(--border-light);
+  border-radius: var(--radius);
+  padding: 8px 10px;
+  font-size: 13px;
+  font-family: var(--font);
+  resize: vertical;
+  outline: none;
+  min-height: 48px;
+  max-height: 120px;
+  transition: border-color 0.2s;
+}
+
+.persona-bar textarea:focus {
+  border-color: var(--accent);
+}
+
+.persona-bar-footer {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 6px;
+}
+
+.link-btn {
+  background: none;
+  border: none;
+  color: var(--accent);
+  cursor: pointer;
+  font-size: 12px;
+  padding: 0;
+  text-decoration: underline;
+}
+
+.link-btn:hover {
+  color: var(--accent-hover);
+}
+
+/* ── Window panels ───────────────────────────────── */
+
+.panel {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 14px;
+  margin-bottom: 14px;
+}
+
+.panel-label {
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: var(--text-dim);
+  margin-bottom: 8px;
+}
+
+.panel textarea {
+  width: 100%;
+  background: var(--bg-input);
+  color: var(--text);
+  border: 1px solid var(--border-light);
+  border-radius: var(--radius);
+  padding: 10px 12px;
+  font-size: 14px;
+  font-family: var(--font);
+  resize: vertical;
+  outline: none;
+  min-height: 130px;
+  transition: border-color 0.2s;
+  line-height: 1.55;
+}
+
+.panel textarea:focus {
+  border-color: var(--accent);
+}
+
+.panel-footer {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  margin-top: 10px;
+  gap: 8px;
+}
+
+.word-count {
+  font-size: 12px;
+  color: var(--text-muted);
+}
+
+/* ── Buttons ─────────────────────────────────────── */
+
+.btn {
+  border: none;
+  border-radius: var(--radius);
+  padding: 8px 18px;
+  font-size: 14px;
+  font-family: var(--font);
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.15s, opacity 0.15s;
+  white-space: nowrap;
+}
+
+.btn:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.btn-primary {
+  background: var(--accent);
+  color: #fff;
+}
+
+.btn-primary:hover:not(:disabled) {
+  background: var(--accent-hover);
+}
+
+.btn-success {
+  background: var(--accent-success);
+  color: #fff;
+}
+
+.btn-success:hover:not(:disabled) {
+  background: var(--accent-success-hover);
+}
+
+.btn-warn {
+  background: var(--accent-warn);
+  color: #1a1a2e;
+}
+
+.btn-warn:hover:not(:disabled) {
+  background: #d68910;
+}
+
+.btn-ghost {
+  background: transparent;
+  color: var(--text-dim);
+  border: 1px solid var(--border-light);
+}
+
+.btn-ghost:hover:not(:disabled) {
+  border-color: var(--text-dim);
+  color: var(--text);
+}
+
+/* ── Spinner ─────────────────────────────────────── */
+
+.spinner {
+  display: inline-block;
+  width: 14px;
+  height: 14px;
+  border: 2px solid rgba(255,255,255,0.3);
+  border-top-color: #fff;
+  border-radius: 50%;
+  animation: spin 0.7s linear infinite;
+  margin-right: 6px;
+  vertical-align: middle;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+/* ── Checkpoint panel ────────────────────────────── */
+
+#checkpoint-panel {
+  background: var(--checkpoint-bg);
+  border: 2px solid var(--checkpoint-border);
+  border-radius: var(--radius);
+  padding: 16px;
+  margin-bottom: 14px;
+  display: none;
+}
+
+#checkpoint-panel.visible {
+  display: block;
+}
+
+.checkpoint-header {
+  font-size: 13px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.6px;
+  color: var(--accent-warn);
+  margin-bottom: 12px;
+}
+
+.checkpoint-columns {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  margin-bottom: 14px;
+}
+
+@media (max-width: 560px) {
+  .checkpoint-columns {
+    grid-template-columns: 1fr;
+  }
+}
+
+.checkpoint-col {
+  background: var(--bg-input);
+  border: 1px solid var(--border-light);
+  border-radius: var(--radius);
+  padding: 10px 12px;
+}
+
+.checkpoint-col-label {
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.6px;
+  color: var(--text-dim);
+  margin-bottom: 6px;
+}
+
+.checkpoint-col-count {
+  font-size: 22px;
+  font-weight: 700;
+  color: var(--text);
+  margin-bottom: 6px;
+}
+
+.checkpoint-col-count.savings {
+  color: var(--accent-success);
+}
+
+.checkpoint-col-text {
+  font-size: 13px;
+  color: var(--text);
+  line-height: 1.5;
+  white-space: pre-wrap;
+  word-break: break-word;
+  max-height: 120px;
+  overflow-y: auto;
+}
+
+.checkpoint-savings-bar {
+  font-size: 13px;
+  color: var(--text-dim);
+  margin-bottom: 12px;
+}
+
+.checkpoint-savings-bar strong {
+  color: var(--accent-success);
+  font-size: 15px;
+}
+
+.checkpoint-actions {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+/* ── Status line ─────────────────────────────────── */
+
+.status-bar {
+  margin-top: auto;
+  padding: 8px 12px;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  font-size: 12px;
+  color: var(--text-dim);
+  font-family: var(--mono);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.status-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--text-muted);
+  flex-shrink: 0;
+}
+
+.status-dot.ok {
+  background: var(--accent-success);
+}
+
+.status-dot.error {
+  background: var(--accent);
+}
+
+.status-dot.loading {
+  background: var(--accent-warn);
+  animation: pulse 1s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.4; }
+}
+
+.status-text {
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* ── Error state ─────────────────────────────────── */
+
+.error-banner {
+  background: rgba(233, 69, 96, 0.15);
+  border: 1px solid var(--accent);
+  border-radius: var(--radius);
+  padding: 10px 14px;
+  font-size: 13px;
+  color: var(--text);
+  margin-bottom: 14px;
+  display: none;
+}
+
+.error-banner.visible {
+  display: block;
+}
+
+/* ── Scrollbar ───────────────────────────────────── */
+
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--border-light);
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--text-muted);
+}

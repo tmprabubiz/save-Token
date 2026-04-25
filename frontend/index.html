@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>🪨 Save Token</title>
+  <link rel="stylesheet" href="/static/style.css" />
+</head>
+<body>
+<div class="app-wrapper">
+
+  <!-- ── Top bar ──────────────────────────────────────────────── -->
+  <div class="topbar">
+    <div class="app-title">🪨 Save Token</div>
+    <div class="topbar-controls">
+      <!-- Target AI family + variant dropdowns -->
+      <select id="family-select" title="Select target AI family" aria-label="Target AI family"></select>
+      <select id="variant-select" title="Select model variant" aria-label="Model variant"></select>
+
+      <!-- Compression mode -->
+      <span class="mode-label">Mode:</span>
+      <select id="mode-select" title="Compression intensity" aria-label="Compression mode">
+        <option value="lite">lite</option>
+        <option value="full" selected>full</option>
+        <option value="ultra">ultra</option>
+        <option value="wenyan-lite">wenyan-lite</option>
+        <option value="wenyan-full">wenyan-full</option>
+        <option value="wenyan-ultra">wenyan-ultra</option>
+      </select>
+    </div>
+  </div>
+
+  <!-- ── Error banner ─────────────────────────────────────────── -->
+  <div id="error-banner" class="error-banner" role="alert"></div>
+
+  <!-- ── Personalisation bar ──────────────────────────────────── -->
+  <div class="persona-bar">
+    <label for="persona-text">
+      Personalisation (optional) — describe your background, topic, or purpose
+    </label>
+    <textarea
+      id="persona-text"
+      rows="2"
+      placeholder="Example: I am a beginner Python developer working on web APIs. Keep explanations simple."
+      aria-label="Personalisation context"
+    ></textarea>
+    <div class="persona-bar-footer">
+      <button class="link-btn" id="load-file-btn" title="Load a personalisation .md file from your computer">
+        Load from file
+      </button>
+      <!-- Hidden file input -->
+      <input type="file" id="file-input" accept=".md,.txt" style="display:none" aria-hidden="true" />
+    </div>
+  </div>
+
+  <!-- ── USER window ──────────────────────────────────────────── -->
+  <div class="panel">
+    <div class="panel-label">USER — paste or type your question here</div>
+    <textarea
+      id="user-text"
+      rows="7"
+      placeholder="Type or paste your question here. The more you write, the more tokens you will save after compression."
+      aria-label="Your question or message"
+    ></textarea>
+    <div class="panel-footer">
+      <span class="word-count" id="user-word-count">0 words</span>
+      <button class="btn btn-primary" id="compress-btn" aria-label="Compress your text">
+        Compress →
+      </button>
+    </div>
+  </div>
+
+  <!-- ── CHECKPOINT panel ─────────────────────────────────────── -->
+  <!--
+    This panel is MANDATORY. It appears after compression.
+    The user must see it before the copy button activates.
+    This is the core teaching moment — showing how many words were saved.
+  -->
+  <div id="checkpoint-panel" role="region" aria-label="Compression checkpoint" aria-live="polite">
+    <div class="checkpoint-header">✓ Checkpoint — Review before copying</div>
+
+    <div class="checkpoint-columns">
+      <!-- Original text column -->
+      <div class="checkpoint-col">
+        <div class="checkpoint-col-label">Original</div>
+        <div class="checkpoint-col-count" id="orig-word-count">—</div>
+        <div class="checkpoint-col-text" id="orig-text-display"></div>
+      </div>
+      <!-- Compressed text column -->
+      <div class="checkpoint-col">
+        <div class="checkpoint-col-label">Compressed</div>
+        <div class="checkpoint-col-count savings" id="comp-word-count">—</div>
+        <div class="checkpoint-col-text" id="comp-text-display"></div>
+      </div>
+    </div>
+
+    <div class="checkpoint-savings-bar" id="savings-badge"></div>
+
+    <div class="checkpoint-actions">
+      <button class="btn btn-success" id="copy-compressed-btn" disabled aria-label="Copy compressed text to clipboard">
+        ✓ Copy compressed text
+      </button>
+      <button class="btn btn-warn" id="try-again-btn" aria-label="Try compression again">
+        ✗ Try again
+      </button>
+    </div>
+  </div>
+
+  <!-- ── MODEL window ─────────────────────────────────────────── -->
+  <div class="panel">
+    <div class="panel-label">MODEL — paste the AI response here</div>
+    <textarea
+      id="model-text"
+      rows="7"
+      placeholder="Paste the AI model's response here. If it replied in compressed caveman style, press Expand → to convert it back to readable English."
+      aria-label="AI model response"
+    ></textarea>
+    <div class="panel-footer">
+      <span class="word-count" id="model-word-count">0 words</span>
+      <button class="btn btn-primary" id="expand-btn" aria-label="Expand compressed response to readable English">
+        Expand →
+      </button>
+    </div>
+  </div>
+
+  <!-- ── Status line ──────────────────────────────────────────── -->
+  <div class="status-bar" aria-live="polite" aria-atomic="true">
+    <div class="status-dot loading" id="status-dot"></div>
+    <span class="status-text" id="status-text">Connecting to local model...</span>
+  </div>
+
+</div><!-- /app-wrapper -->
+
+<script src="/static/app.js"></script>
+</body>
+</html>
