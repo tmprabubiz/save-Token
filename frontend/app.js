@@ -106,6 +106,70 @@ const statusDot         = document.getElementById("status-dot");
 const statusText        = document.getElementById("status-text");
 const errorBanner       = document.getElementById("error-banner");
 
+// ── Theme toggle ──────────────────────────────────────────────────────────────
+const themeToggleBtn = document.getElementById('theme-toggle');
+const htmlEl = document.documentElement;
+
+function applyTheme(theme) {
+  htmlEl.setAttribute('data-theme', theme);
+  themeToggleBtn.textContent = theme === 'dark' ? '☀️' : '🌙';
+  localStorage.setItem('save-token-theme', theme);
+}
+
+const savedTheme = localStorage.getItem('save-token-theme') || 'light';
+applyTheme(savedTheme);
+
+themeToggleBtn.addEventListener('click', () => {
+  const current = htmlEl.getAttribute('data-theme');
+  applyTheme(current === 'dark' ? 'light' : 'dark');
+});
+
+// ── System prompt modal ───────────────────────────────────────────────────────
+const promptModal    = document.getElementById('prompt-modal');
+const modalCode      = document.getElementById('modal-code-content');
+const modalTitleEl   = document.getElementById('modal-title');
+const modalCopyBtn   = document.getElementById('modal-copy-btn');
+
+function closeModal() { promptModal.style.display = 'none'; }
+
+document.getElementById('app-title-btn').addEventListener('click', async () => {
+  const selected = variantSelect.options[variantSelect.selectedIndex];
+  if (!selected || !selected.dataset.file) {
+    modalTitleEl.textContent = 'System Prompt';
+    modalCode.textContent = 'Select a model from the dropdown first, then click 💰 to see its system prompt.';
+    promptModal.style.display = 'flex';
+    return;
+  }
+  const mdFile = selected.dataset.file;
+  modalTitleEl.textContent = `System Prompt — ${selected.textContent.trim()}`;
+  modalCode.textContent = 'Loading…';
+  promptModal.style.display = 'flex';
+  try {
+    const resp = await fetch(`/model-persona/${mdFile}`);
+    if (!resp.ok) throw new Error();
+    modalCode.textContent = await resp.text();
+  } catch {
+    modalCode.textContent = `Could not load ${mdFile}. Make sure the server is running.`;
+  }
+});
+
+document.getElementById('modal-close-btn').addEventListener('click', closeModal);
+document.getElementById('modal-close-btn-2').addEventListener('click', closeModal);
+promptModal.addEventListener('click', e => { if (e.target === promptModal) closeModal(); });
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
+
+modalCopyBtn.addEventListener('click', async () => {
+  const content = modalCode.textContent;
+  if (!content || content === 'Loading…') return;
+  try {
+    await navigator.clipboard.writeText(content);
+    modalCopyBtn.textContent = '✓ Copied!';
+    setTimeout(() => { modalCopyBtn.innerHTML = '📋 Copy prompt'; }, 2000);
+  } catch {
+    showError('Could not copy automatically. Select the text in the box and press Ctrl+C.');
+  }
+});
+
 // ── Utilities ────────────────────────────────────────────────────────────────
 
 function countWords(text) {

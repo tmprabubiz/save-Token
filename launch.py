@@ -18,6 +18,7 @@ sys.path.insert(0, str(Path(__file__).parent))
 
 import uvicorn
 import webview
+from app import logger as session_logger
 
 def start_server():
     uvicorn.run(
@@ -29,6 +30,9 @@ def start_server():
     )
 
 if __name__ == "__main__":
+    # Reset session log on startup
+    session_logger.reset_session()
+
     # Start FastAPI in background thread
     server_thread = threading.Thread(target=start_server, daemon=True)
     server_thread.start()

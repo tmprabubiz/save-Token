@@ -227,6 +227,18 @@ async def compress(req: CompressRequest):
 
     savings = calculate_savings(req.text, compressed)
 
+    # Log the compression
+    try:
+        session_logger.log_compress(
+            original=req.text,
+            compressed=compressed,
+            model_used=model,
+            words_saved=savings["words_saved"],
+            percent_saved=savings["percent_saved"],
+        )
+    except Exception:
+        pass
+
     return CompressResponse(
         compressed=compressed,
         original_words=savings["original_words"],
